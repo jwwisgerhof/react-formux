@@ -1,2 +1,3 @@
 # react-formux
-An experimental react redux form system
+
+An experimental project to test a new react form library. Run the demo using `yarn start`.
