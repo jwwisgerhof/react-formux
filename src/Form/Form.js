@@ -10,7 +10,7 @@ class Form extends React.PureComponent {
     };
 
     componentDidMount() {
-        if (this.props.validator && typeof this.props.validator === "function") {
+        if (this.props.validator) {
             this.props.onUpdateValidator(this.props.validator);
         }
     }
