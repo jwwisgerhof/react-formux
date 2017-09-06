@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "deep-equal": "^1.0.1",
+    "lodash.clonedeep": "^4.5.0",
     "material-ui": "next",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

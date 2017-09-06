@@ -9,6 +9,7 @@ import Field from './Form/Field';
 
 // Local
 import validator from './validation';
+import asyncValidator from './asyncValidation';
 
 export default class LoginForm extends React.PureComponent {
     static propTypes = {
@@ -21,7 +22,7 @@ export default class LoginForm extends React.PureComponent {
 
     render() {
         return (
-            <JWForm onSubmit={this.onSubmit} validator={validator}>
+            <JWForm onSubmit={this.onSubmit} validator={validator} asyncValidator={asyncValidator}>
                 <Field name='name' label="Username" field={TextField} fullWidth helperText="Type in your username" />
                 <br /><br />
                 <Field name='description' label="Description" field={TextField} fullWidth />

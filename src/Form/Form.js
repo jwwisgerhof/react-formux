@@ -16,9 +16,12 @@ class Form extends React.PureComponent {
     }
 
     render() {
+        console.log('Re-rendering form with form data: ', this.props.formData);
         return (
             <form onSubmit={this.onSubmit}>
                 {this.props.children}
+                <br /><br />
+                {JSON.stringify(this.props.formData)}
             </form>
         )
     }
@@ -26,17 +29,19 @@ class Form extends React.PureComponent {
 
 Form.propTypes = {
     children: PropTypes.array,
+    formData: PropTypes.object,
     onSubmit: PropTypes.func.isRequired,
     onUpdateValidator: PropTypes.func.isRequired,
-    validator: PropTypes.func
 };
 
 const ConnectedForm = connect(state => {
-    return {};
+    return {
+        formData: state.form.formData
+    };
 }, dispatch => {
     return {
         onUpdateValidator: validator => dispatch(onUpdateValidator(validator))
-    }
+    };
 })(Form);
 
 export default ConnectedForm;
