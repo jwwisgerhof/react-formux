@@ -17,14 +17,17 @@ export default class LoginForm extends React.PureComponent {
     };
 
     onSubmit = values => {
-        console.log(values);
+        console.log('Success!', values);
     };
 
     render() {
         return (
             <JWForm onSubmit={this.onSubmit} validator={validator} asyncValidator={asyncValidator}>
                 <Field name='name' label="Username" field={TextField} fullWidth helperText="Type in your username" />
-                <br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 <Field name='description' label="Description" field={TextField} fullWidth />
                 <br /><br />
                 <Button raised color="primary" type="submit">Go!</Button>

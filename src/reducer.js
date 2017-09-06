@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import {combineReducers} from 'redux-immutable';
 import formReducer from './Form/reducer';
 
 const reducer = combineReducers({

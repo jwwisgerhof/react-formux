@@ -1,35 +1,27 @@
-import cloneDeep from 'lodash.clonedeep';
+import Immutable from 'immutable';
 
 import {
     ON_BLUR_FIELD,
     ON_CHANGE_FIELD,
-    ON_UPDATE_VALIDATOR
+    ON_UPDATE_VALIDATION_MESSAGE,
+    ON_UPDATE_VALIDATION_MESSAGES
 } from './actions';
 
-const initialState = {
+const initialState = Immutable.fromJS({
     formData: {},
-    validationMessages: {},
-    validator: undefined
-};
+    validationMessages: {}
+});
 
 const formReducer = (state = initialState, action) => {
     switch(action.type) {
         case ON_BLUR_FIELD:
             return state;
         case ON_CHANGE_FIELD:
-            const newState = cloneDeep(state);
-            const fieldName = action.payload.name;
-
-            newState.formData[fieldName] = action.payload.value;
-
-            if (state.validator && state.validator[fieldName]) {
-                console.log(state.validator[fieldName](action.payload.value, newState.formData));
-                newState.validationMessages[fieldName] = state.validator[fieldName](action.payload.value, newState.formData);
-            }
-
-            return newState;
-        case ON_UPDATE_VALIDATOR:
-            return Object.assign(cloneDeep(state), {validator: action.payload});
+            return state.setIn(['formData', action.payload.name], action.payload.value);
+        case ON_UPDATE_VALIDATION_MESSAGE:
+            return state.setIn(['validationMessages', action.payload.name], action.payload.value);
+        case ON_UPDATE_VALIDATION_MESSAGES:
+            return state.set('validationMessages', Immutable.Map(action.payload));
         default:
             return state;
     }
