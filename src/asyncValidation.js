@@ -7,6 +7,6 @@ export default {
     description: (value, formData) => new Promise(resolve => {
         window.setTimeout(() => {
             resolve(value && value.length > 6 ? 'Description is too long!' : undefined);
-        }, 50);
+        }, 2000);
     })
 };
