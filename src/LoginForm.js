@@ -33,6 +33,7 @@ export default class LoginForm extends React.PureComponent {
         return (
             <Formux name="login-form"
                 onSubmit={this.onSubmit}
+                initialValues={{name: 'Bob'}}
                 validator={validator}
                 asyncValidator={asyncValidator}
                 onFinalValidationStart={this.onValidationStart}

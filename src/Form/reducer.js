@@ -12,12 +12,13 @@ const initialState = Immutable.fromJS({
     validationMessages: {}
 });
 
-const formReducer = (state = initialState, action) => {
+const formReducer = (state = Immutable.Map({}), action) => {
     const formName = action.formName;
 
     switch(action.type) {
         case INITIALIZE_FORM:
-            return state.set(formName, initialState);
+            const formData = action.payload ? Immutable.fromJS(action.payload) : initialState.get('formData');
+            return state.set(formName, initialState.set('formData', formData));
         case ON_CHANGE_FIELD:
             return state.setIn([formName, 'formData', action.payload.name], action.payload.value);
         case ON_UPDATE_VALIDATION_MESSAGE:

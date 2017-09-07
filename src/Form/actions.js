@@ -3,8 +3,8 @@ export const ON_CHANGE_FIELD = 'ON_CHANGE_FIELD';
 export const ON_UPDATE_VALIDATION_MESSAGE = 'ON_UPDATE_VALIDATION_MESSAGE';
 export const ON_UPDATE_VALIDATION_MESSAGES = 'ON_UPDATE_VALIDATION_MESSAGES';
 
-export const initializeForm = formName => {
-    return {type: INITIALIZE_FORM, formName};
+export const initializeForm = (formName, initialValues) => {
+    return {type: INITIALIZE_FORM, formName, payload: initialValues};
 };
 
 export const onChangeField = (formName, fieldName, value) => {

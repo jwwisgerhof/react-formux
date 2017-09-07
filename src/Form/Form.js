@@ -17,6 +17,10 @@ class Form extends React.PureComponent {
     }
 
     componentWillMount() {
+        this.props.initializeForm(this.props.name, this.props.initialValues);
+    }
+
+    componentWillUnmount() {
         this.props.initializeForm(this.props.name);
     }
 
@@ -148,6 +152,7 @@ Form.propTypes = {
     asyncValidator: PropTypes.object,
     children: PropTypes.array,
     formData: PropTypes.object,
+    initialValues: PropTypes.object,
     name: PropTypes.string.isRequired,
     onChangeField: PropTypes.func.isRequired,
     onFinalValidationStart: PropTypes.func,
@@ -163,7 +168,7 @@ const ConnectedForm = connect((state, ownProps) => {
     };
 }, dispatch => {
     return {
-        initializeForm: name => dispatch(initializeForm(name)),
+        initializeForm: (name, initialValues) => dispatch(initializeForm(name, initialValues)),
         onChangeField: (formName, fieldName, value) => dispatch(onChangeField(formName, fieldName, value)),
         onUpdateValidationMessage: (formName, fieldName, value) => dispatch(onUpdateValidationMessage(formName, fieldName, value)),
         onUpdateValidationMessages: (formName, values) => dispatch(onUpdateValidationMessages(formName, values))
@@ -173,6 +178,7 @@ const ConnectedForm = connect((state, ownProps) => {
 ConnectedForm.propTypes = {
     asyncValidator: PropTypes.object,
     children: PropTypes.array.isRequired,
+    initialValues: PropTypes.object,
     name: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onFinalValidationStart: PropTypes.func,
