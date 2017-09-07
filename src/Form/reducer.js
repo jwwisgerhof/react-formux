@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import {
-    ON_BLUR_FIELD,
+    INITIALIZE_FORM,
     ON_CHANGE_FIELD,
     ON_UPDATE_VALIDATION_MESSAGE,
     ON_UPDATE_VALIDATION_MESSAGES
@@ -13,15 +13,17 @@ const initialState = Immutable.fromJS({
 });
 
 const formReducer = (state = initialState, action) => {
+    const formName = action.formName;
+
     switch(action.type) {
-        case ON_BLUR_FIELD:
-            return state;
+        case INITIALIZE_FORM:
+            return state.set(formName, initialState);
         case ON_CHANGE_FIELD:
-            return state.setIn(['formData', action.payload.name], action.payload.value);
+            return state.setIn([formName, 'formData', action.payload.name], action.payload.value);
         case ON_UPDATE_VALIDATION_MESSAGE:
-            return state.setIn(['validationMessages', action.payload.name], action.payload.value);
+            return state.setIn([formName, 'validationMessages', action.payload.name], action.payload.value);
         case ON_UPDATE_VALIDATION_MESSAGES:
-            return state.set('validationMessages', Immutable.Map(action.payload));
+            return state.setIn([formName, 'validationMessages'], Immutable.Map(action.payload));
         default:
             return state;
     }

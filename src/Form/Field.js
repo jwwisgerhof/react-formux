@@ -7,22 +7,26 @@ const sanitizeProps = props => {
     delete copy.field;
     delete copy.touched;
     delete copy.validationMessage;
+    delete copy.onSetRef;
+    delete copy.formName;
+    delete copy.onBlur;
+    delete copy.onChange;
     return copy;
 };
 
 class Field extends React.PureComponent {
     onBlur = event => {
-        this.context.onBlurField(this.props.name, event.target.value);
+        this.props.onBlur(this.props.name, event.target.value);
     };
 
     // Should be abstracted away and be formed into a single consistent thing
     onChange = event => {
-        this.context.onChangeField(this.props.name, event.target.value);
+        this.props.onChange(this.props.name, event.target.value);
     }
 
     onSetRef = ref => {
         if (ref) {
-            this.context.onSetRef(this.props.name, ref);
+            this.props.onSetRef(this.props.name, ref);
         }
     }
 
@@ -41,15 +45,13 @@ class Field extends React.PureComponent {
     }
 }
 
-Field.contextTypes = {
-    onBlurField: PropTypes.func.isRequired,
-    onChangeField: PropTypes.func.isRequired,
-    onSetRef: PropTypes.func.isRequired
-}
-
 Field.propTypes = {
     field: PropTypes.func.isRequired,
+    formName: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    onBlur: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onSetRef: PropTypes.func.isRequired,
     validationMessage: PropTypes.string,
     value: PropTypes.any.isRequired
 };
@@ -57,8 +59,8 @@ Field.propTypes = {
 // Connected
 const FieldConnected = connect((state, ownProps) => {
     return {
-        validationMessage: state.getIn(['form', 'validationMessages', ownProps.name]),
-        value: state.getIn(['form', 'formData', ownProps.name]) || ''
+        validationMessage: state.getIn(['formux', ownProps.formName, 'validationMessages', ownProps.name]),
+        value: state.getIn(['formux', ownProps.formName, 'formData', ownProps.name]) || ''
     }
 }, dispatch => {
     return {};
